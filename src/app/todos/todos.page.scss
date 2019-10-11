@@ -1,0 +1,25 @@
+.warning {
+color: red;
+}
+h3:first-child{
+    margin-top: 0.3em;
+}
+
+    .oculto{
+        font-style: italic;
+        color: lightgray;
+        padding-top: 10px;
+    }
+.lineas{
+    border:none !important;
+}
+.no-todos{
+    font-size: 1.3em;
+    font-style: italic;
+    color: lightgray;
+    text-align: center;
+    margin-top: 50px;
+}
+ion-item{
+    --border-style: none;
+}

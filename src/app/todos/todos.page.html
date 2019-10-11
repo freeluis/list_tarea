@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+    <ion-title>Lista de cosas por hacer</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h3>{{list.name}}</h3>
+<ion-list>
+
+  <ion-item class="no-todos" *ngIf="!miServicio.todos || miServicio.todos.length == 0">
+    Agrega alguna tarea a la lista
+  </ion-item>
+
+ <ion-item-sliding *ngFor="let todo of (miServicio.todos | priorityTodo)">
+
+   <ion-item [ngStyle]="setTodoStyles(todo)">
+      <ion-label>{{todo.description}}</ion-label>
+      <ion-checkbox class="lineas" (click)="toogleTodo(todo)" [checked]="todo.IsDone"></ion-checkbox>
+   </ion-item>
+
+   <ion-item-options side="end">
+      <ion-button color="dark" (click)="showEditTodo(todo)">
+        <ion-icon name="create"></ion-icon>
+        Editar
+      </ion-button>
+      <ion-button color="danger" (click)="removeTodo(todo)">
+        <ion-icon name="trash"></ion-icon>
+        Remover
+      </ion-button>
+   </ion-item-options>
+   
+ </ion-item-sliding>
+
+ <ion-item-divider class="oculto" *ngIf="(miServicio.todos | doneTodoPipe).length > 0">Tarea completada</ion-item-divider>
+
+ <ion-item *ngFor="let todo of (miServicio.todos | doneTodoPipe)" [ngStyle]="setTodoStyles(todo)">
+  <ion-label color="light" >{{todo.description}}</ion-label>
+  <ion-checkbox color="light" (click)="toogleTodo(todo)" [checked]="todo.IsDone"></ion-checkbox>
+</ion-item>
+
+</ion-list>
+</ion-content>
+
+<ion-fab vertical="bottom" horizontal="end">
+  <ion-fab-button (click)="showAddTodo()">
+  <ion-icon name="add-circle"></ion-icon>
+</ion-fab-button>
+</ion-fab>

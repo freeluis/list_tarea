@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{titulo}}</ion-title>
+    <ion-buttons slot="end" *ngIf="!isIos()">
+     <ion-button (click)="esconder()"><ion-icon name="close"></ion-icon></ion-button> 
+    </ion-buttons>
+    <ion-buttons slot="start" *ngIf="isIos()">
+      <ion-button (click)="esconder()"><span>Close</span></ion-button> 
+     </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+<ion-list lines="none">
+
+
+    <form class="container" (ngSubmit)="submit()">
+    
+        <div class="div-container">
+        <ion-item>
+            <ion-input placeholder="Descripcion de la tarea" clearInput
+            [(ngModel)]="model.description" name="description" required="true"
+            #descriptionState=ngModel></ion-input>
+          </ion-item>
+
+          <div class="mensaje" [hidden]="descriptionState.valid || descriptionState.untouched">
+              Es requerida la descripcion
+          </div>
+          
+          <ion-item>
+            <ion-label>Es Importante</ion-label>
+              <ion-checkbox color="primary" [(ngModel)]="model.IsImportant" name="IsImportant"></ion-checkbox>
+          </ion-item>
+          
+          <div class="submit-button">
+              <ion-button expand="block" type="submit"
+              [disabled]="!descriptionState.valid">{{botontexto}}</ion-button>
+            </div>
+          </div>
+    </form>
+      
+ 
+
+  
+</ion-list>
+
+</ion-content>

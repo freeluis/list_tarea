@@ -1,0 +1,33 @@
+
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-title>Mis Listas</ion-title>
+  </ion-toolbar>
+</ion-header>
+<!--
+<ion-content>
+<ion-list>
+  <ion-item (click)="gotomylist()">Mi Primera lista</ion-item>
+  <ion-item (click)="gotomylist()">Mi Segunda lista</ion-item>
+  <ion-item (click)="gotomylist()">Mi Tercera lista</ion-item>
+  <ion-item (click)="gotomylist()">Mi Cuarta lista</ion-item>
+ 
+
+</ion-list>
+</ion-content>
+-->
+<ion-content>
+    <div class="container-card">
+        <div *ngFor="let list of listService.lists" class="separate-card">
+            <div class="my-card">
+                <ion-item (click)="gotomylist(list)">{{list.name}}</ion-item>
+              </div>
+        </div>
+      </div>
+</ion-content>
+
+<ion-fab vertical="bottom" horizontal="end">
+    <ion-fab-button  color="danger" (click)="showAddList()">
+    <ion-icon name="add-circle"></ion-icon>
+  </ion-fab-button>
+  </ion-fab>

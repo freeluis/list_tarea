@@ -1,0 +1,39 @@
+ion-list    {
+    height: 100%;
+}
+.container{
+height: 100%;
+display: flex;
+flex-direction: column;
+//align-items: center;
+justify-content: center;
+
+>*{
+    margin-bottom: 30px;
+}
+
+.div-container{
+    padding-left: 45px;
+    padding-right: 45px;
+    .submit-button{
+        width: 100%;
+    }
+}
+.mensaje{
+    color: red;
+    margin-top: 6px;
+    transition-property: opacity, visibility;
+    transition-duration: 0.3s;
+
+    
+    &[hidden]{
+        display: block !important;
+        opacity: 0;
+        visibility: hidden;
+        transition-property: opacity, visibility;
+        transition-duration: 0.3s;
+        //transition-delay: 0.3s;
+    }
+}
+
+}
