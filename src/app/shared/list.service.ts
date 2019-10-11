@@ -25,7 +25,8 @@ export class ListService {
     this.lists = [...this.lists, list];
     return list;
   }
-getFromLocal() {
+
+  public getFromLocal() {
     /* this.local.ready().then(() => {
       this.local.get('list').then(
         data => {
@@ -46,6 +47,7 @@ getFromLocal() {
     }
     this.lists = locallists;
     console.log(this.lists);
+    console.log('eewgr');
     
   }
 
