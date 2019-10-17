@@ -35,6 +35,7 @@ import { ListService } from './shared/list.service';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy,},
     MiservicioService,
+    Storage,
     ListService,
     //ListService
   ],

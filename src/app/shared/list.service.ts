@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ListModel } from './list-model';
 import { Platform } from '@ionic/angular';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 
 @Injectable({
@@ -12,12 +12,23 @@ export class ListService {
 
   constructor(public http: HttpClient, private platform: Platform, public local: Storage) {
     this.getLists();
-    console.log('carga list');
-    
+   // this.getList2();
+
   }
+
+ /* private getList2() {
+    this.http.get("http://localhost:3000/lists").subscribe((res) => {
+      console.log(res);
+      console.log("------"); 
+
+    });
+    console.log("algo");
+
+  }*/
 
   private getLists() {
     this.getFromLocal();
+    this.getFromServer();
   }
 
   public addList(name: string) {
@@ -41,20 +52,41 @@ export class ListService {
       )
     }); */
     let data = JSON.parse(localStorage.getItem('list'));
-    let locallists: ListModel[] = [];
-    for (let list of data) {
-      locallists.push(new ListModel(list.name, list.id))
+    if (!data) {
+      this.lists = [];
     }
-    this.lists = locallists;
-    console.log(this.lists);
-    console.log('eewgr');
-    
+    else {
+      let locallists: ListModel[] = [];
+
+      for (let list of data) {
+        locallists.push(new ListModel(list.name, list.id))
+      }
+      this.lists = locallists;
+
+    }
+
+
   }
 
-  public saveLocally(){
+  private getFromServer(){
+    this.http.get("http://localhost:3000/lists").subscribe((data:any)=>{
+      if(data){
+        data.forEach(cadaElementoIterado => {
+          console.log(cadaElementoIterado.id);
+          console.log(cadaElementoIterado.id);
+        });
+      }else{
+
+      }
+    },(error:HttpErrorResponse)=>{
+      console.log(error);
+    });
+  }
+
+  public saveLocally() {
     /* this.local.ready().then(()=>{
       this.local.set('list', this.lists);
     }); */
-    localStorage.setItem('list', JSON.stringify(this.lists));
+    localStorage.setItem(`list`, JSON.stringify(this.lists));
   }
 }

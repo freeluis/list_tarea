@@ -27,9 +27,7 @@ export class ListPage implements OnInit {
   }
 
   gotomylist(list: ListModel) {
-    console.log("1");
-    console.log(list);
-    
+   
     this.router.navigate(['/todos', { list: JSON.stringify(list)}]);
   }
   addNewList(name: string) {

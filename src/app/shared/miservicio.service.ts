@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { TodoModel } from './todo-model';
 import { longStackSupport } from 'q';
 import { Platform } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -11,23 +12,31 @@ export class MiservicioService {
   private todos: TodoModel[] = [];
 
   private timer: any;
-  constructor(public http: HttpClient, private platform: Platform) {
+  constructor(public http: HttpClient, private platform: Platform, public local:Storage) {
 
   }
 
   public loadFromList(id: number) {
-    if (id < 3) {
-      this.todos = [
+      this.getFromLocal(id);
+    }
+    public getFromLocal(id:number){  
+      let data = JSON.parse(localStorage.getItem(`list/${id}`));
+      if(!data){
+        this.todos = [];
+      }
+      else {
+        let localTodos:TodoModel[] = [];
 
-        new TodoModel("a", false, false, 1),
-        new TodoModel("b", false, false, 2),
-        new TodoModel("c", false, false, 3)
-      ]
+        for (let todo of data){
+          localTodos.push(new TodoModel(todo.description, todo.IsImportant, todo.IsDone, todo.id));
+        }
+        this.todos = localTodos;
+      }
+      
     }
-    else {
-      this.todos = [];
+    public saveLocally(id:number){
+      localStorage.setItem(`list/${id}`, JSON.stringify(this.todos));
     }
-  }
 
   toogleTodo(todo: TodoModel) {
     console.log(todo);
